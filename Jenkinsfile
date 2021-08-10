@@ -13,7 +13,7 @@ pipeline {
                 }
             }
         }
-		}
+		
         stage('CompileandPackage') {
             steps {
 				bat("mvn -Dmaven.test.failure.ignore clean compile sonar:sonar")
