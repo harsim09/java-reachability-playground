@@ -17,9 +17,12 @@ pipeline {
 		
         stage('CompileandPackage') {
             steps {
-				bat("mvn -Dmaven.test.failure.ignore clean compile sonar:sonar -Dsonar.login=6f2c9fb6c4546e8327f3471c0a50c97b17f4a622")
+			script{
+			withSonarQubeEnv('sonarqubetest'){
+				bat("mvn -Dmaven.test.failure.ignore clean compile sonar:sonar -Dsonar.login=64ff722206f9599e63b429194cda2239d673c5fa")
 			}
-            
+            }
+			}
         }
 		
 		stage("Quality gate") {
