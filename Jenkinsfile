@@ -11,6 +11,20 @@ pipeline {
 			}
             
         }
+		
+		stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    bat( "mvn sonarqube")
+                }
+            }
+        }
+		
+		stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
         
     }
 }
