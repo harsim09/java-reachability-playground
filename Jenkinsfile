@@ -1,16 +1,23 @@
 pipeline {
     agent any
+	tools { 
+        maven 'Maven 3.3.9' 
+        jdk 'jdk8' 
+    }
 
     stages {
         stage('SetEnv') {
             steps {
-				mvnHome = tool 'MAVEN_HOME'
+				 sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                ''' 
             }
         }
         stage('CompileandPackage') {
             steps {
-                withEnv(["MVN_HOME=$mvnHome"]) {
-				bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean compile/)
+                withEnv(["M2_HOME=${M2_HOME}"]) {
+				bat(/"%M2_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean compile/)
          }
             }
         }
