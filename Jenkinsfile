@@ -2,21 +2,14 @@ pipeline {
     agent any
 	tools { 
         maven 'MAVEN_HOME'  
-		sonar 'SonarQube'
     }
 
     stages {
         stage('CompileandPackage') {
             steps {
-				bat("mvn -Dmaven.test.failure.ignore clean compile")
+				bat("mvn -Dmaven.test.failure.ignore clean compile sonar:sonar")
 			}
             
-        }
-		
-		stage('SonarQube analysis') {
-            steps {
-                    bat( "mvn sonar")
-            }
         }
 		
 		stage("Quality gate") {
