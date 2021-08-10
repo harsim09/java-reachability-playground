@@ -17,7 +17,7 @@ pipeline {
 		
         stage('CompileandPackage') {
             steps {
-				bat("mvn -Dmaven.test.failure.ignore clean compile sonar:sonar")
+				bat("mvn -Dmaven.test.failure.ignore clean compile sonar:sonar -Dsonar.login=6f2c9fb6c4546e8327f3471c0a50c97b17f4a622")
 			}
             
         }
