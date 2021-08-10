@@ -5,17 +5,14 @@ pipeline {
     }
 
     stages {
-	
-			stage('SonarQube analysis') {
-			steps{
-				script {
-				scannerHome = tool 'sonarqube scanner';
-			}
-			withSonarQubeEnv('SonarQube') {
-            bat "${scannerHome}/bin/sonar-scanner.bat" 
-			}
-			}
-		  }
+			stage('Build') {
+            steps {
+                def scannerHome = tool 'sonarqube scanner'
+                withSonarQubeEnv('sonarqubetest') {
+                    bat("${scannerHome}/bin/sonar-scanner")
+                }
+            }
+        }
 		}
         stage('CompileandPackage') {
             steps {
