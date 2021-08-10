@@ -7,10 +7,12 @@ pipeline {
     stages {
 	
 			stage('SonarQube analysis') {
+			steps{
 			ws("D:\\Harsimran\\Github\\java-reachability-playground") {
 			// requires SonarQube Scanner 2.8+
 			def scannerHome = tool 'sonarqube scanner';
 			bat "${scannerHome}/bin/sonar-scanner.bat"
+			}
 		  }
 		}
         stage('CompileandPackage') {
