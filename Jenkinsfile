@@ -2,7 +2,7 @@ pipeline {
     agent any
 	tools { 
         maven 'MAVEN_HOME'  
-		sonarqube 'SonarQube'
+		sonar 'SonarQube'
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
 		
 		stage('SonarQube analysis') {
             steps {
-                    bat( "mvn sonarqube")
+                    bat( "mvn sonar")
             }
         }
 		
