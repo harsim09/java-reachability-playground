@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+#sonarscanner is optional for maven project
+  pre_build:
+    commands:
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+      - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
+      - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
+  build:
+    commands:
+      - mvn compile
+      - mvn sonar:sonar -Dproject.settings=sonar-project.properties -Dsonar.login=token -Dsonar.host.url=http://sonarcloud.io -Dsonar.projectKey=github-jenkins-java-sonar -Dsonar.organization=harsim09
+      - sleep 5
+
+  
